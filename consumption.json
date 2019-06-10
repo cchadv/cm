@@ -1,1 +1,433 @@
-
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This is a simple API",
+    "version" : "1.0.0",
+    "title" : "Simple Inventory API",
+    "contact" : {
+      "email" : "you@your-company.com1"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags" : [ {
+    "name" : "plans",
+    "description" : "plan建立，service提供plan，marketpalce subscription時，綁定在instance上"
+  }, {
+    "name" : "packages",
+    "description" : "套餐組合，CM用"
+  }, {
+    "name" : "marketplace",
+    "description" : "marketplace買package（subscription）用"
+  } ],
+  "paths" : {
+    "/plans" : {
+      "post" : {
+        "tags" : [ "plans" ],
+        "summary" : "新增plan",
+        "operationId" : "addPlan",
+        "description" : "add plan",
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "pass an optional search string for looking up inventory",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Plan"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      },
+      "get" : {
+        "tags" : [ "plans" ],
+        "summary" : "Get all plan",
+        "description" : "Get all plan",
+        "operationId" : "getPlan",
+        "produces" : [ "application/xml", "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "404" : {
+            "description" : "Plan not found"
+          },
+          "405" : {
+            "description" : "Validation exception"
+          }
+        }
+      }
+    },
+    "/plans/{plan_id}" : {
+      "get" : {
+        "tags" : [ "plans" ],
+        "summary" : "Get plan by plan id",
+        "description" : "Get plan by plan id",
+        "operationId" : "getPlanById",
+        "produces" : [ "application/xml", "application/json" ],
+        "parameters" : [ {
+          "name" : "plan_id",
+          "in" : "path",
+          "description" : "Plan ID",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Plan"
+            }
+          },
+          "404" : {
+            "description" : "Plan not found"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "plans" ],
+        "summary" : "Update plan by plan id",
+        "description" : "update plan by plan_id",
+        "operationId" : "updatePlanById",
+        "produces" : [ "application/xml", "application/json" ],
+        "parameters" : [ {
+          "name" : "plan_id",
+          "in" : "path",
+          "description" : "Plan ID",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Plan"
+            }
+          },
+          "404" : {
+            "description" : "Plan not found"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "plans" ],
+        "summary" : "delete plan by plan id",
+        "description" : "delete plan by plan_id",
+        "operationId" : "deletePlanById",
+        "produces" : [ "application/xml", "application/json" ],
+        "parameters" : [ {
+          "name" : "plan_id",
+          "in" : "path",
+          "description" : "Plan ID",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Plan"
+            }
+          },
+          "404" : {
+            "description" : "Plan not found"
+          }
+        }
+      }
+    },
+    "/packages" : {
+      "post" : {
+        "tags" : [ "packages" ],
+        "summary" : "新增package",
+        "description" : "新增package",
+        "operationId" : "addPackage",
+        "consumes" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "新增package",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Package"
+          }
+        } ],
+        "responses" : {
+          "404" : {
+            "description" : "Plan not found"
+          },
+          "405" : {
+            "description" : "Validation exception"
+          }
+        }
+      },
+      "get" : {
+        "tags" : [ "packages" ],
+        "summary" : "Get all package",
+        "description" : "et all package",
+        "operationId" : "getPackage",
+        "produces" : [ "application/xml", "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "404" : {
+            "description" : "Package not found"
+          },
+          "405" : {
+            "description" : "Validation exception"
+          }
+        }
+      }
+    },
+    "/packages/{package_id}" : {
+      "get" : {
+        "tags" : [ "packages" ],
+        "summary" : "Get package by package id",
+        "description" : "Get package by package id",
+        "operationId" : "getPackageById",
+        "produces" : [ "application/xml", "application/json" ],
+        "parameters" : [ {
+          "name" : "package_id",
+          "in" : "path",
+          "description" : "Package ID",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Package"
+            }
+          },
+          "404" : {
+            "description" : "Package not found"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "packages" ],
+        "summary" : "Update package by package id",
+        "description" : "update package by package_id",
+        "operationId" : "updatePackageById",
+        "consumes" : [ "application/xml", "application/json" ],
+        "parameters" : [ {
+          "name" : "package_id",
+          "in" : "path",
+          "description" : "Package ID",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Package"
+            }
+          },
+          "404" : {
+            "description" : "Package id not found"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "packages" ],
+        "summary" : "delete package by package id",
+        "description" : "delete package by package_id",
+        "operationId" : "deletePackageById",
+        "parameters" : [ {
+          "name" : "package_id",
+          "in" : "path",
+          "description" : "Package ID",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          },
+          "404" : {
+            "description" : "Package not found"
+          }
+        }
+      }
+    },
+    "/marketplace/packages" : {
+      "get" : {
+        "tags" : [ "marketplace" ],
+        "summary" : "get all package in marketplace",
+        "description" : "get all package in marketplace",
+        "operationId" : "getMarketplacePackage",
+        "consumes" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "get all package in marketplace",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Package"
+          }
+        } ],
+        "responses" : {
+          "404" : {
+            "description" : "Plan not found"
+          },
+          "405" : {
+            "description" : "Validation exception"
+          }
+        }
+      }
+    },
+    "/marketplace/packages/{package_id}" : {
+      "get" : {
+        "tags" : [ "marketplace" ],
+        "summary" : "get package info by package id",
+        "description" : "get package info by package id",
+        "operationId" : "getMarketplacePackageById",
+        "consumes" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "package_id",
+          "description" : "get package info by package id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "404" : {
+            "description" : "Plan not found"
+          },
+          "405" : {
+            "description" : "Validation exception"
+          }
+        }
+      }
+    },
+    "/marketplace/subscriptions/{subscription_id}" : {
+      "get" : {
+        "tags" : [ "marketplace" ],
+        "summary" : "get instance package by subscription_id",
+        "description" : "get instance package by subscription_id",
+        "operationId" : "getPackageBySubscriptionId",
+        "produces" : [ "application/xml", "application/json" ],
+        "parameters" : [ {
+          "name" : "subscription_id",
+          "in" : "path",
+          "description" : "Subscription ID",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Package"
+            }
+          },
+          "404" : {
+            "description" : "Package not found"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "marketplace" ],
+        "summary" : "delete package by subscription",
+        "description" : "delete package by subscription",
+        "operationId" : "unSubscription",
+        "parameters" : [ {
+          "name" : "subscription_id",
+          "in" : "path",
+          "description" : "subscription_id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          },
+          "404" : {
+            "description" : "Package not found"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "marketplace" ],
+        "summary" : "buy a package to instance",
+        "description" : "buy a package to instance",
+        "operationId" : "subscriptionPackageToInstance",
+        "consumes" : [ "application/xml", "application/json" ],
+        "parameters" : [ {
+          "name" : "subscription_id",
+          "in" : "path",
+          "description" : "Package ID",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          },
+          "404" : {
+            "description" : "Package id not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Plan" : {
+      "type" : "object"
+    },
+    "Package" : {
+      "type" : "object"
+    },
+    "InventoryItem" : {
+      "type" : "object",
+      "required" : [ "id", "name", "manufacturer", "releaseDate" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid",
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        },
+        "name" : {
+          "type" : "string",
+          "example" : "Widget Adapter"
+        },
+        "releaseDate" : {
+          "type" : "string",
+          "format" : "date-time",
+          "example" : "2016-08-29T09:12:33.001Z"
+        },
+        "manufacturer" : {
+          "$ref" : "#/definitions/Manufacturer"
+        }
+      }
+    },
+    "Manufacturer" : {
+      "required" : [ "name" ],
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "example" : "ACME Corporation"
+        },
+        "homePage" : {
+          "type" : "string",
+          "format" : "url",
+          "example" : "https://www.acme-corp.com"
+        },
+        "phone" : {
+          "type" : "string",
+          "example" : "408-867-5309"
+        }
+      }
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/cchadv/testy/1.0.0",
+  "schemes" : [ "https" ]
+}
